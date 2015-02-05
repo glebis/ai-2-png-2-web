@@ -43,3 +43,5 @@ Names of the folders can be configured via Makefile variables (at the top of the
 Remove generated folders
 
 ## Watchdog task
+
+``watchmedo shell-command --patterns="*.ai" --command="make stuff"``
