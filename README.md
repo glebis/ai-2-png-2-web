@@ -44,4 +44,4 @@ Remove generated folders
 
 ## Watchdog task
 
-``watchmedo shell-command --patterns="*.ai" --command="make stuff"``
+``watchmedo shell-command --patterns="*.ai" --drop --command="make stuff"``

@@ -37,16 +37,19 @@ clean:
 	@rm -r $(output_folder)
 
 png:
+	command -v gsc >/dev/null 2>&1 || { echo "Converting AI/PDF to PNG requires GhostScript. Install it: brew install ghostscript" >&2; exit 1; }
 	mkdir -p $(png_output)
 	gsc  -dBATCH -dNOPAUSE -sDEVICE=pngalpha -r$(resolution) -sOutputFile=$(png_output)/%0$(number_format)d.png $(ai)
 
 html:
+	command -v php >/dev/null 2>&1 || { echo "PHP should be installed for this command to run." >&2; exit 1; }
 	@mkdir -p $(output_folder)
 	@cp -rf $(png_output) $(output_folder)/$(img_folder)
 	@php generate.php --output_folder=$(output_folder)  --img_folder=$(img_folder)
 
 
-# watch:
-# 	watchmedo shell-command --patterns="*.ai" --command='make stuff'
+watch:
+	@command -v watchmedo >/dev/null 2>&1 || { echo "Watchdog is required for this command to run. Install it: pip install watchdog" >&2; exit 1; }
+	watchmedo shell-command --drop --patterns="*.ai" --command='make stuff'
 
 .PHONY: sync clean png html all stuff
